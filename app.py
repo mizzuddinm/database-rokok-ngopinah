@@ -5,6 +5,6 @@ from streamlit_gsheets import GSheetsConnection
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Membaca data
-df = conn.read(spreadsheet="MASUKKAN_URL_GOOGLE_SHEET_ANDA_DI_SINI")
+df = conn.read(spreadsheet="https://docs.google.com/spreadsheets/d/1XwYfBSF4fULdXJFo3TJsJ78JBfANmNtcw8kajWV4nK0/edit?usp=sharing")
 
 st.dataframe(df)
