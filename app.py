@@ -1,10 +1,17 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+import pandas as pd
 
-# Inisialisasi koneksi dengan mode oauth
-conn = st.connection("gsheets", type=GSheetsConnection)
+# Masukkan link Google Sheets asli Anda
+sheet_url = "https://docs.google.com/spreadsheets/d/ID_SPREADSHEET_ANDA/edit#gid=0"
 
-# Membaca data
-df = conn.read(spreadsheet="https://docs.google.com/spreadsheets/d/1XwYfBSF4fULdXJFo3TJsJ78JBfANmNtcw8kajWV4nK0/edit?usp=sharing")
+# Ubah format link agar menjadi CSV (kunci agar bisa dibaca pandas)
+csv_url = sheet_url.replace("/edit#gid=", "/export?format=csv&gid=")
 
+st.title("Database Rokok Ngopinah")
+
+@st.cache_data(ttl=600)
+def load_data():
+    return pd.read_csv(csv_url)
+
+df = load_data()
 st.dataframe(df)
